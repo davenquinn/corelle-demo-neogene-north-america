@@ -1,0 +1,28 @@
+{
+  "name": "@macrostrat/wilson2005-rotations",
+  "version": "1.0.0",
+  "description": "A lightweight demo of Corelle using the Wilson et al., 2005 plate rotation model.",
+  "main": "dist/index.html",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build --public-url ./ index.html",
+    "deploy": "scripts/deploy"
+  },
+  "author": "Daven Quinn",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.1",
+    "react-router-dom": "^5.2.0",
+    "stylus": "^0.54.8",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@macrostrat/corelle": "^1.0.4",
+    "@macrostrat/hyper": "^1.2.11",
+    "@macrostrat/map-components": "^0.2.1",
+    "@macrostrat/timescale": "^1.0.1",
+    "@macrostrat/ui-components": "^0.3.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
