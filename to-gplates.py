@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import json
 
 def get_rotations():
     """Get rotations from `pub05` file"""
@@ -34,9 +35,13 @@ class PlateIDIndex:
             self.idx += 1
         return self._index.get(id)
 
+    def write(self, file):
+        json.dump(self._index, file)
+
 plate_id_index = PlateIDIndex()
 plate_names = get_platenames()
 
+# Write out GPlates rotations
 with open("output/Wilson_etal2005.rot", "w") as f:
     for r in get_rotations():
         (plate_id, *rest) = r
@@ -52,3 +57,7 @@ with open("output/Wilson_etal2005.rot", "w") as f:
         if plate_name := plate_names.get(plate_id, None):
             st += f" - {plate_name}"
         print(st, file=f)
+
+# Write out plate id mapping
+with open("output/plate-id.json", "w") as f:
+    plate_id_index.write(f)
