@@ -8,7 +8,7 @@ models in addition to [global datasets](https://davenquinn.com/viz/corelle-demo-
 
 The most critical piece of this demo are rotations from the [Wilson et al., 2005](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2003TC001621)
 tectonic model, extracted to [GPlates](https://www.gplates.org/) format and loaded into Macrostrat's [Corelle dev server](https://birdnest.geology.wisc.edu/corelle).
-The raw data, extraction scripts, and output rotation files and plate features can be found in the [`rotation-model` subfolder here](rotation-model).
+The raw data, extraction scripts, and output (a GPlates-compatible [rotation file](https://github.com/davenquinn/corelle-demo-neogene-north-america/blob/master/rotation-model/output/Wilson_etal2005.rot) and [plate features](https://github.com/davenquinn/corelle-demo-neogene-north-america/blob/master/rotation-model/output/plate-features.geojson)) can be found in the [`rotation-model` subfolder here](rotation-model).
 This extraction will be improved over time.
 
 ## Changelog
