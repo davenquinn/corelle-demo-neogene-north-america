@@ -21,9 +21,6 @@ body
   max-width 24em
   padding 1em
 
-.timescale
-  overflow-y: hidden
-
 .right-column
   flex-grow 1
   .map-container
@@ -90,6 +87,8 @@ Eventually this will all be integrated as better options to
 the timescale component itself.
 */
 .timescale
+  *
+    box-sizing border-box
   cursor: pointer
   position relative
   margin 0 auto
@@ -101,13 +100,19 @@ the timescale component itself.
 
 //.interval
 //flex-direction: column-reverse !important;
+  .cursor
+    left 68px !important
+
+  .interval-label
+    padding 5px 2px
+    font-size 12px
+    display inline-block
+    line-height 26px
+
 
 .interval-label
   color #222
   font-weight 500
-
-g.vx-group.vx-axis
-  transform translate(20px,20px)
 
 .timescale .cursor-text
   font-weight bold

@@ -75,7 +75,7 @@ function App() {
       h(Timescale, {
         ageRange: [37, 0],
         orientation: TimescaleOrientation.VERTICAL,
-        length: 350,
+        length: 400,
         absoluteAgeScale: true,
         levels: [3, 4],
         cursorPosition: time,
@@ -83,7 +83,8 @@ function App() {
           orientation: "right",
           tickLength: 4,
           hideAxisLine: true,
-          labelOffset: 10,
+          labelOffset: 4,
+          width: 32,
         },
         onClick(event, age) {
           setTime(Math.round(age));
