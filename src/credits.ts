@@ -6,7 +6,7 @@ function Citation({ doi, children }) {
 
 function Credits() {
   return h("div.credits", [
-    h("h1", "Neogene marginal modification of western North America"),
+    h("h1", "Neogene modification of the North American cordilleran margin"),
     h("p", [
       "The ",
       h(Citation, { doi: "10.1029/2003TC001621" }, "Wilson et al., 2005"),
@@ -23,7 +23,10 @@ function Credits() {
     h("p", [
       h(
         "a",
-        { href: "https://github.com/davenquinn/corelle-demo-wilson2005" },
+        {
+          href:
+            "https://github.com/davenquinn/corelle-demo-neogene-north-america",
+        },
         "Code on GitHub"
       ),
     ]),
