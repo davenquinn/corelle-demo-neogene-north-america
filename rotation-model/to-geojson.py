@@ -61,10 +61,9 @@ def get_plate_polygons(plate_features):
             continue
         geom = [shape(feature["geometry"]) for feature in group]
         yield {
-            "id": key,
             # A coarse polygonization of all the features...
             "geometry": mapping(unary_union(geom).convex_hull),
-            "properties": {"id": key, "old_lim": 500},
+            "properties": {"plate_id": key, "parent_id": 1},
         }
 
 

@@ -1,7 +1,4 @@
-rot := output/Wilson_etal2005.rot
-
-all: $(rot)
-
-$(rot): to-gplates.py
+all: to-gplates.py to-geojson.py load-corelle
 	mkdir -p output
-	./$^
+	./to-gplates.py
+	./to-geojson.py

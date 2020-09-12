@@ -5,6 +5,9 @@ import json
 def get_rotations():
     """Get rotations from `pub05` file"""
     with open("model/fort.9.pub05") as f:
+        # Add a rotation for the present day for NA
+        yield ("NA", 0, 0, 0, 0,)
+
         for line in f:
             tokens = line.split()
             if len(tokens) != 5:
@@ -47,7 +50,10 @@ with open("output/Wilson_etal2005.rot", "w") as f:
         (plate_id, *rest) = r
         plateno = plate_id_index.get(plate_id)
         # This relies on 'NA' being the first plate
-        relative_to = plate_id_index.get("NA")
+        if plate_id == "NA":
+            relative_to = 0 # zero is the global reference frame.
+        else:
+            relative_to = plate_id_index.get("NA")
         st = f"{plateno:03g}"
         for k in rest:
             st += f"  {k:10.3f}"
