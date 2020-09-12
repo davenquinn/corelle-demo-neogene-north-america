@@ -2,7 +2,7 @@ import h from "@macrostrat/hyper";
 import { useState, useEffect } from "react";
 import { ResizeSensor } from "@blueprintjs/core";
 import { RotationsProvider } from "@macrostrat/corelle";
-import { Timescale } from "@macrostrat/timescale";
+import { Timescale, TimescaleOrientation } from "@macrostrat/timescale";
 import "@macrostrat/timescale/dist/timescale.css";
 import { Map } from "./map";
 import { Credits } from "./credits";
@@ -64,7 +64,7 @@ function MapColumn({ onResize, children }) {
 
 function App() {
   /** The core app component */
-  const model = "Wright2013";
+  const model = "Wilson2005";
 
   const [time, setTime] = useTimeRange([37, 0], 10);
   const [size, setSize] = useState(null);
@@ -74,7 +74,7 @@ function App() {
       h(Credits),
       h(Timescale, {
         ageRange: [37, 0],
-        orientation: "vertical",
+        orientation: TimescaleOrientation.VERTICAL,
         length: 350,
         absoluteAgeScale: true,
         levels: [3, 4],
@@ -91,11 +91,15 @@ function App() {
       }),
     ]),
     h(MapColumn, { onResize: setSize }, [
-      h(RotationsProvider, { model, time, debounce: 1000 }, [
-        h("div.map-container", [
-          h(Map, { width: size?.width ?? 0, height: size?.height ?? 0 }),
-        ]),
-      ]),
+      h(
+        RotationsProvider,
+        { model, time, debounce: 1000, endpoint: "http://localhost:5480/api" },
+        [
+          h("div.map-container", [
+            h(Map, { width: size?.width ?? 0, height: size?.height ?? 0 }),
+          ]),
+        ]
+      ),
     ]),
   ]);
 }

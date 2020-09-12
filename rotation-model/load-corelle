@@ -2,24 +2,22 @@
 # Import plate model into Corelle (running in a docker container)
 # Limitations: no plate polygons yet, so all features must be explicitly
 # tied to a plate ID.
-corelle=${CORELLE_DIR:-"../corelle"}
+corelle=${CORELLE_DIR:-"../../corelle"}
 container_id=$(cd $corelle && docker-compose ps -q api)
+echo "$container_id"
 
 ex() {
   # Run in container
   docker exec $container_id $@
 }
 
-# We have to create a placeholder plate polygons dataset in order to import the model.
-echo '{"type": "FeatureCollection", "features": []}' > output/empty-features.geojson
-
 pth=/tmp/Wilson_etal2005
 docker cp output $container_id:"$pth"
+echo "Running import process"
 ex corelle import "Wilson2005" \
   --min-age 0 \
   --max-age 37 \
   --overwrite \
-  "$pth/empty-features.geojson" \
+  "$pth/plate-polygons.geojson" \
   "$pth/Wilson_etal2005.rot"
 ex rm -rf "$pth"
-
