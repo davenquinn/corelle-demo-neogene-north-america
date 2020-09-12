@@ -92,15 +92,11 @@ function App() {
       }),
     ]),
     h(MapColumn, { onResize: setSize }, [
-      h(
-        RotationsProvider,
-        { model, time, debounce: 1000, endpoint: "http://localhost:5480/api" },
-        [
-          h("div.map-container", [
-            h(Map, { width: size?.width ?? 0, height: size?.height ?? 0 }),
-          ]),
-        ]
-      ),
+      h(RotationsProvider, { model, time, debounce: 1000 }, [
+        h("div.map-container", [
+          h(Map, { width: size?.width ?? 0, height: size?.height ?? 0 }),
+        ]),
+      ]),
     ]),
   ]);
 }

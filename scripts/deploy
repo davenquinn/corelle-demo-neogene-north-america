@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm -rf dist .parcel-cache
+npm run build
+
+rclone sync dist/ davenquinn-spaces:davenquinn-sites/viz/corelle-demo-neogene-north-america/
