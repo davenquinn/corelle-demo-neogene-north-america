@@ -1,4 +1,4 @@
-import { geoNaturalEarth1 } from "d3-geo";
+import { geoStereographic, geoTransverseMercator } from "d3-geo";
 import { useRef } from "react";
 import { PlateFeatureLayer } from "@macrostrat/corelle";
 import { hyperStyled } from "@macrostrat/hyper";
@@ -9,28 +9,34 @@ import styles from "./main.styl";
 
 const h = hyperStyled(styles);
 
+const center = [-119.6, 37.13];
+
+const createProjection = () => {
+  return geoTransverseMercator().rotate([-center[0], -center[1], 0]);
+};
+
 const Map = (props) => {
   /** Map that implements callback to reset internal map state */
   const { width, height } = props;
-  const projection = geoNaturalEarth1().precision(0.5);
+  const projection = createProjection();
   const mapRef = useRef<Globe>();
 
   const resetMap = () => {
     // We have to totally recreate the projection for it to be immutable
-    mapRef.current?.resetProjection(geoNaturalEarth1().precision(0.5));
+    mapRef.current?.resetProjection(createProjection());
   };
 
-  return h("div.world-map", null, [
+  return h("div.world-map", { style: { width, height } }, [
     h(
       Globe,
       {
         ref: mapRef,
         keepNorthUp: true,
         projection,
+        scale: 2000,
         width,
         height,
         keepNorthUp: false,
-        scale: Math.min(width / 5.5, height / 3) - 10,
       },
       [
         h(PlateFeatureLayer, {

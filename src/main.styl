@@ -5,21 +5,31 @@
 *
   font-family: "San Francisco", "Helvetica Neue", sans-serif
 
-html, body
-  margin: 0
-  width: 100vw
-  height 100vh
-  position relative
+body
+  margin 0
+  padding 0
 
 .app
   width 100vw
   height 100vh
   display flex
-  flex-direction column
+  flex-direction: row
   overflow hidden
 
+.left-column
+  min-width 10em
+  padding 1em
+
+.timescale
+  overflow-y: hidden
+
+.right-column
+  flex-grow 1
+  .map-container
+    height 100vh
+
+
 .world-map
-  flex 1
   cursor move
   position relative
   a.reset-map
@@ -30,29 +40,27 @@ html, body
     cursor pointer
     font-size 12px
 
-plate_color=#888
+// plate_color=#888
+//
+// g.plates path
+//   fill: alpha(plate_color,0.2)
+//   stroke: alpha(plate_color, 0.8)
+//   stroke-width: 1px
+//   outline: none
+//   &:hover
+//     fill: alpha(plate_color,0.5)
+//     stroke-width: 1px
+//     outline: none
+//
+// land_color=#E9FCEA
+// g.ne_110m_land
+//   path
+//     fill land_color
+//     stroke darken(land_color, 10%)
+//     stroke-width: 1px
 
-g.plates path
-  fill: alpha(plate_color,0.2)
-  stroke: alpha(plate_color, 0.8)
-  stroke-width: 1px
-  outline: none
-  &:hover
-    fill: alpha(plate_color,0.5)
-    stroke-width: 1px
-    outline: none
-
-land_color=#E9FCEA
-g.ne_110m_land
-  path
-    fill land_color
-    stroke darken(land_color, 10%)
-    stroke-width: 1px
 
 .credits
-  position fixed
-  top 10px
-  left 10px
   width 6em
   margin-bottom 0
   font-style italic
@@ -82,17 +90,18 @@ The code below styles the timescale correctly.
 Eventually this will all be integrated as better options to
 the timescale component itself.
 */
-.timescale.horizontal
+.timescale
   cursor: pointer
   position relative
   margin 0 auto
+  display flex
   &>.interval
     border 1px solid var(--timescale-cursor-color)
   margin-bottom 10px
-  flex-direction: column-reverse !important
+  //flex-direction: column-reverse !important
 
-.interval
-  flex-direction: column-reverse !important;
+//.interval
+//flex-direction: column-reverse !important;
 
 .interval-label
   color #222

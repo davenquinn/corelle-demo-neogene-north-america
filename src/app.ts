@@ -7,6 +7,7 @@ import "@macrostrat/timescale/dist/timescale.css";
 import { Map } from "./map";
 import { Credits } from "./credits";
 import { getQueryString, setQueryString } from "@macrostrat/ui-components";
+import "./main.styl";
 
 function useTimeState(initialValue) {
   /** Time state hook that also manages query URL */
@@ -45,52 +46,58 @@ function useTimeRange(range: [number, number], initialValue: number) {
   return [time, setTime];
 }
 
+function MapColumn({ onResize, children }) {
+  return h("div.right-column", [
+    h(
+      ResizeSensor,
+      {
+        onResize(entries) {
+          console.log(entries[0].contentRect);
+          const { width, height } = entries[0].contentRect;
+          return onResize({ width, height });
+        },
+      },
+      children
+    ),
+  ]);
+}
+
 function App() {
   /** The core app component */
   const model = "Wright2013";
 
-  const [time, setTime] = useTimeRange([542, 0], 300);
-  const [size, setSize] = useState({
-    width: 1100,
-    height: 800,
-  });
+  const [time, setTime] = useTimeRange([37, 0], 10);
+  const [size, setSize] = useState(null);
 
-  return h(
-    ResizeSensor,
-    {
-      onResize(entries) {
-        const { width, height } = entries[0].contentRect;
-        return setSize({ width, height });
-      },
-    },
-    [
-      h("div.app", [
-        h(Credits),
-        h(RotationsProvider, { model, time, debounce: 1000 }, [
-          h(Map, { width: size.width, height: size.height - 100 }),
+  return h("div.app", [
+    h("div.left-column", [
+      h(Credits),
+      h(Timescale, {
+        ageRange: [37, 0],
+        orientation: "vertical",
+        length: 350,
+        absoluteAgeScale: true,
+        levels: [3, 4],
+        cursorPosition: time,
+        axisProps: {
+          orientation: "right",
+          tickLength: 4,
+          hideAxisLine: true,
+          labelOffset: 10,
+        },
+        onClick(event, age) {
+          setTime(Math.round(age));
+        },
+      }),
+    ]),
+    h(MapColumn, { onResize: setSize }, [
+      h(RotationsProvider, { model, time, debounce: 1000 }, [
+        h("div.map-container", [
+          h(Map, { width: size?.width ?? 0, height: size?.height ?? 0 }),
         ]),
-        // Many of these timescale options need to be simplified
-        h(Timescale, {
-          ageRange: [542, 0],
-          orientation: "horizontal",
-          length: size.width - 20,
-          absoluteAgeScale: true,
-          rootInterval: 751,
-          levels: [2, 3],
-          cursorPosition: time,
-          axisProps: {
-            orientation: "top",
-            tickLength: 4,
-            hideAxisLine: true,
-            labelOffset: 10,
-          },
-          onClick(event, age) {
-            setTime(Math.round(age));
-          },
-        }),
       ]),
-    ]
-  );
+    ]),
+  ]);
 }
 
 export { App };
