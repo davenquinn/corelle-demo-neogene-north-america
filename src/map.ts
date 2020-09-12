@@ -2,17 +2,17 @@ import { geoStereographic, geoTransverseMercator } from "d3-geo";
 import { useRef } from "react";
 import { PlateFeatureLayer } from "@macrostrat/corelle";
 import { hyperStyled } from "@macrostrat/hyper";
-import { PBDBCollectionLayer } from "./point-overlay";
+import { RotatedFeatureLayer } from "./feature-overlay";
 import { Globe } from "@macrostrat/map-components";
 import "@macrostrat/map-components/dist/esm/index.css";
 import styles from "./main.styl";
 
 const h = hyperStyled(styles);
 
-const center = [-119.6, 37.13];
+const center = [-115, 30];
 
 const createProjection = () => {
-  return geoTransverseMercator().rotate([-center[0], -center[1], 0]);
+  return geoTransverseMercator().rotate([-center[0], -center[1], -40]);
 };
 
 const Map = (props) => {
@@ -33,10 +33,10 @@ const Map = (props) => {
         ref: mapRef,
         keepNorthUp: true,
         projection,
-        scale: 2000,
+        scale: width * 4,
         width,
         height,
-        keepNorthUp: false,
+        keepNorthUp: true,
       },
       [
         h(PlateFeatureLayer, {
@@ -47,7 +47,7 @@ const Map = (props) => {
             stroke: "#9dc99f",
           },
         }),
-        h(PBDBCollectionLayer),
+        h(RotatedFeatureLayer),
       ]
     ),
     h("a.reset-map", { onClick: resetMap }, "Reset projection"),

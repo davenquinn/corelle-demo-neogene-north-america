@@ -17,7 +17,8 @@ body
   overflow hidden
 
 .left-column
-  min-width 10em
+  min-width 16em
+  max-width 24em
   padding 1em
 
 .timescale
@@ -61,8 +62,6 @@ body
 
 
 .credits
-  width 6em
-  margin-bottom 0
   font-style italic
   color #888
   text-align left
@@ -115,5 +114,16 @@ g.vx-group.vx-axis
   font-size 14px
   padding 0 4px
 
-path.pbdb-collection
-  fill: rgb(129, 79, 164)
+.features
+  path
+    fill: transparent
+    stroke-width 2px
+    &.faults.etc
+      stroke: #222222 !important
+    &.continental
+      stroke: #aaaaaa
+    &.Coastlines
+      stroke: lightgreen
+
+.map-container .background
+  fill: white

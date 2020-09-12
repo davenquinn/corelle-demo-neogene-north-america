@@ -6,7 +6,11 @@ function Citation({ doi, children }) {
 
 function Credits() {
   return h("div.credits", [
-    h("h1", "Corelle"),
+    h("h1", "Neogene marginal modification of western North America"),
+    h("p", [
+      "Plate rotations from ",
+      h(Citation, { doi: "10.1029/2003TC001621" }, "Wilson et al., 2005"),
+    ]),
     h("p", "Client-side rotation of PBDB collections."),
     h("p", [h("a.author", { href: "https://davenquinn.com" }, "Daven Quinn")]),
     h("p", [h("span.version", "v1.0.0"), ", ", h("span.date", "Aug. 2020")]),
@@ -16,10 +20,6 @@ function Credits() {
         { href: "https://github.com/davenquinn/corelle-demo-pbdb" },
         "Code on GitHub"
       ),
-    ]),
-    h("p", [
-      "Rotations: ",
-      h(Citation, { doi: "10.5194/bg-10-1529-2013" }, "Wright et al., 2013"),
     ]),
   ]);
 }
